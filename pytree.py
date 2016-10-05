@@ -12,7 +12,7 @@ def generatenbsp(depth, nbsp, pipes):
         except:
             nbsp = nbsp + "    "
     return nbsp
-    
+
 
 def printTree(d, depth, fullpath, isLast, pipes, directories, files):
     nbsp = ""
