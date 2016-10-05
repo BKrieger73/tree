@@ -7,11 +7,12 @@ import os
 def generatenbsp(depth, nbsp, pipes):
     for i in range(depth):
         try:
-            if pipes.index(i) > -1: 
+            if pipes.index(i) > -1:
                 nbsp = nbsp + "│   "
         except:
             nbsp = nbsp + "    "
     return nbsp
+    
 
 def printTree(d, depth, fullpath, isLast, pipes, directories, files):
     nbsp = ""
@@ -26,7 +27,7 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files):
         print(nbsp + chr + " " + d)
         dirs = os.listdir(fullpath + "/" + d)
         dirs.sort()
-        if (not isLast): 
+        if (not isLast):
             pipes.append(depth)
         for j in range(len(dirs)):
             if not (dirs[j].startswith(".")):
