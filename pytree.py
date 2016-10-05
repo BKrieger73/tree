@@ -5,24 +5,54 @@ import os
 
 # YOUR CODE GOES here
 
-def printTree(d, depth) :
+def printTree(d, depth, fullpath, isLast, pipes) :
 	nbsp = ""
-	depth = depth + 1
-	if (os.path.isdir(d) == False) :
-		for i in range(depth) :
-			nbsp = nbsp + "    "
-		print("|" + nbsp + d)
+	depth = depth + 1	
+	#print(fullpath+d)
+	chr = "|"
+	if isLast :
+		chr = "`"
+	if (os.path.isdir(fullpath + "/" + d)) :
+		if (depth>0) :
+			for i in range(depth) :
+				try :
+					if pipes.index(i) > -1 : 
+						nbsp = nbsp + "|   "
+				except :
+					nbsp = nbsp + "   "
+			nbsp = "|" + nbsp		
+		print(nbsp + chr + "-- " + d)
+		dirs = os.listdir(fullpath + "/" + d)
+		if not isLast and depth > 0:
+			pipes.append(depth)
+		for j in range(len(dirs)) :
+			if not (dirs[j].startswith(".")) :				
+				printTree(dirs[j], depth, fullpath + "/" + d, ( j == len(dirs) - 1), pipes)
 	else :
-		print("| -- " + d)
-		dirs = os.listdir(d)
-		for j in dirs :
-			printTree(j, dept
+		#print(pipes)
+		for i in range(depth) :
+			try :
+				if pipes.index(i) > -1 : 
+					nbsp = nbsp + "|   "
+			except :
+				nbsp = nbsp + "   "
+		if isLast and len(pipes) > 0 :
+			pipes.remove(pipes[len(pipes)-1])
+		if (depth>1) :
+			nbsp = "|" + nbsp
+		print(nbsp + chr + "-- " + d)	
+
 
 if __name__ == '__main__':
-	dirs = os.listdir(os.getcwd())
+	cwd = os.getcwd()
+	dirs = os.listdir(cwd)
 	depth = -1
-	for i in dirs: 
-		printTree(i, depth)
+	pipes = []
+	print(".")
+	for i in range(len(dirs)) : 
+		isLast = ( i == len(dirs) - 1)
+		if not (dirs[i].startswith(".")) :
+			printTree(dirs[i], depth, cwd, isLast, pipes)
 	
 	#print(os.listdir(os.getcwd())[0]);
 	# just for demo
