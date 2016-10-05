@@ -3,6 +3,7 @@ import subprocess
 import sys
 import os
 
+
 def generatenbsp(depth, nbsp, pipes):
     for i in range(depth):
         try:
@@ -12,7 +13,6 @@ def generatenbsp(depth, nbsp, pipes):
             nbsp = nbsp + "    "
     return nbsp
 
-
 def printTree(d, depth, fullpath, isLast, pipes, directories, files):
     nbsp = ""
     depth = depth + 1
@@ -21,12 +21,12 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files):
         chr = "└──"
     if (os.path.isdir(fullpath + "/" + d)):
         directories = directories + 1
-        if (depth>0):
+        if (depth > 0):
             nbsp = generatenbsp(depth, nbsp, pipes)
         print(nbsp + chr + " " + d)
         dirs = os.listdir(fullpath + "/" + d)
         dirs.sort()
-        if (not isLast ): 
+        if (not isLast): 
             pipes.append(depth)
         for j in range(len(dirs)):
             if not (dirs[j].startswith(".")):
@@ -35,8 +35,8 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files):
         files = files + 1
         nbsp = generatenbsp(depth, nbsp, pipes)
         if isLast and len(pipes) > 0:
-            pipes.remove(pipes[len(pipes)-1])
-        print(nbsp + chr + " " + d)    
+            pipes.remove(pipes[len(pipes) - 1])
+        print(nbsp + chr + " " + d)
     return directories, files
 
 
@@ -56,10 +56,9 @@ if __name__ == '__main__':
     depth = -1
     pipes = []
     dirs.sort()
-    for i in range(len(dirs)): 
-        isLast = ( i == len(dirs) - 1)
+    for i in range(len(dirs)):
+        isLast = (i == len(dirs) - 1)
         if not (dirs[i].startswith(".")):
             directories, files = printTree(dirs[i], depth, cwd, isLast, pipes, directories, files)
     print()
     print(str(directories) + " directories, " + str(files) + " files")
-    
