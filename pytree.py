@@ -16,9 +16,9 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files) :
 			for i in range(depth) :
 				try :
 					if pipes.index(i) > -1 : 
-						nbsp = nbsp + "│    "
+						nbsp = nbsp + "│   "
 				except :
-					nbsp = nbsp + "    "
+					nbsp = nbsp + "   "
 		print(nbsp + chr + " " + d)
 		dirs = os.listdir(fullpath + "/" + d)
 		dirs.sort()
@@ -32,9 +32,9 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files) :
 		for i in range(depth) :
 			try :
 				if pipes.index(i) > -1 : 
-					nbsp = nbsp + "│    "
+					nbsp = nbsp + "│   "
 			except :
-				nbsp = nbsp + "    "			
+				nbsp = nbsp + "   "			
 		if isLast and len(pipes) > 0 :
 			pipes.remove(pipes[len(pipes)-1])
 		print(nbsp + chr + " " + d)	
