@@ -8,7 +8,6 @@ import os
 def printTree(d, depth, fullpath, isLast, pipes) :
 	nbsp = ""
 	depth = depth + 1	
-	#print(fullpath+d)
 	chr = "|"
 	if isLast :
 		chr = "`"
@@ -17,38 +16,43 @@ def printTree(d, depth, fullpath, isLast, pipes) :
 			for i in range(depth) :
 				try :
 					if pipes.index(i) > -1 : 
-						nbsp = nbsp + "|   "
+						nbsp = nbsp + "|    "
 				except :
-					nbsp = nbsp + "   "
-			nbsp = "|" + nbsp		
+					nbsp = nbsp + "    "	
 		print(nbsp + chr + "-- " + d)
 		dirs = os.listdir(fullpath + "/" + d)
+		dirs.sort()
 		if not isLast and depth > 0:
 			pipes.append(depth)
 		for j in range(len(dirs)) :
 			if not (dirs[j].startswith(".")) :				
 				printTree(dirs[j], depth, fullpath + "/" + d, ( j == len(dirs) - 1), pipes)
 	else :
-		#print(pipes)
 		for i in range(depth) :
 			try :
 				if pipes.index(i) > -1 : 
-					nbsp = nbsp + "|   "
+					nbsp = nbsp + "|    "
 			except :
-				nbsp = nbsp + "   "
+				nbsp = nbsp + "    "
 		if isLast and len(pipes) > 0 :
 			pipes.remove(pipes[len(pipes)-1])
-		if (depth>1) :
-			nbsp = "|" + nbsp
 		print(nbsp + chr + "-- " + d)	
 
 
 if __name__ == '__main__':
-	cwd = os.getcwd()
+	if len(sys.argv) == 2 :
+		print(sys.argv[1])
+		cwd = sys.argv[1]
+	elif len(sys.argv) == 1 :
+		print(".")
+		cwd = os.getcwd()
+	else :
+		print("incorrect number of arguments")
+		exit()
 	dirs = os.listdir(cwd)
 	depth = -1
 	pipes = []
-	print(".")
+	dirs.sort()
 	for i in range(len(dirs)) : 
 		isLast = ( i == len(dirs) - 1)
 		if not (dirs[i].startswith(".")) :
