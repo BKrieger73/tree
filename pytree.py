@@ -62,4 +62,4 @@ if __name__ == '__main__':
 		if not (dirs[i].startswith(".")) :
 			directories, files = printTree(dirs[i], depth, cwd, isLast, pipes, directories, files)
 	print()
-	print(str(directories) + " directories,  " + str(files) + " files")
+	print(str(directories) + " directories, " + str(files) + " files")
