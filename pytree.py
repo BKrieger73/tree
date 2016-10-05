@@ -6,7 +6,7 @@ import os
 
 def printTree(d, depth, fullpath, isLast, pipes, directories, files) :
 	nbsp = ""
-	depth = depth + 1	
+	depth = depth + 1
 	chr = "├──"
 	if isLast :
 		chr = "└──"
@@ -16,7 +16,7 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files) :
 			for i in range(depth) :
 				try :
 					if pipes.index(i) > -1 : 
-						nbsp = nbsp + "│    "
+						nbsp = nbsp + "│   "
 				except :
 					nbsp = nbsp + "    "
 		print(nbsp + chr + " " + d)
@@ -25,16 +25,16 @@ def printTree(d, depth, fullpath, isLast, pipes, directories, files) :
 		if (not isLast ) : 
 			pipes.append(depth)
 		for j in range(len(dirs)) :
-			if not (dirs[j].startswith(".")) :				
+			if not (dirs[j].startswith(".")) :
 				directories, files = printTree(dirs[j], depth, fullpath + "/" + d, ( j == len(dirs) - 1), pipes, directories, files)
 	else :
 		files = files + 1;
 		for i in range(depth) :
 			try :
 				if pipes.index(i) > -1 : 
-					nbsp = nbsp + "│    "
+					nbsp = nbsp + "│   "
 			except :
-				nbsp = nbsp + "    "			
+				nbsp = nbsp + "    "
 		if isLast and len(pipes) > 0 :
 			pipes.remove(pipes[len(pipes)-1])
 		print(nbsp + chr + " " + d)	
